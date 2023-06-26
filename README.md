@@ -29,8 +29,8 @@ This is a repository for my experimentation with OpenLlama 3B with LangChain. Th
 2. Execute `run_lang.py` and wait for it to generate the answers.
 
 ### Running a question and answer assistant for your documents
-1. Modify the `question_q_and_a` in `questions.py`.
-2. Create 
+1. Modify the `question_q_and_a` in `questions.py` and the data directory. 
+2. Modify the `run_doc_openllamaembed.py` or `run_doc_huggingfaceembed.py` if you made any changes in the data to be queried.
 3. Execute `run_doc_openllamaembed.py` or `run_doc_huggingfaceembed.py` and wait for it to generate the answers.
 
 NOTE: There is a `run.py` which has a sample implementation directly lifted from the huggingface repository of the OpenLlama 3B.
