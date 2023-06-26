@@ -9,7 +9,7 @@ from pydantic import BaseModel
 from transformers import LlamaTokenizer, LlamaForCausalLM
 from langchain.embeddings.base import Embeddings
 from typing import List, Optional
-
+from questions import questions_q_and_a
 
 # reference: https://github.com/paolorechia/learn-langchain/blob/c6ede53d271a2587beb88a4907de089338a64195/servers/hf_loader.py
 # model definition
@@ -25,6 +25,7 @@ tokenizer = LlamaTokenizer.from_pretrained(model_path)
 
 # generalized embedding function
 def get_embeddings(prompt):
+    if not isinstance(prompt, str): prompt = prompt.page_content
     input_ids = tokenizer(prompt).input_ids
     input_embeddings = model.get_input_embeddings()
     embeddings = input_embeddings(torch.LongTensor([input_ids]))
@@ -65,28 +66,24 @@ class OpenLlamaEmbeddings(BaseModel, Embeddings):
 
 
 # embed the texts using the openllamaembeddings
+from langchain.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import Chroma
+from langchain.vectorstores import FAISS
 
 embeddings = OpenLlamaEmbeddings()
 
 # store the documents into a vectordb
-with open('data/paul_graham_essay.txt', "r") as data_file:
-    book = data_file.read()
-
-text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-texts = text_splitter.split_text(book)
-db = Chroma.from_texts(texts, embeddings,  metadatas=[{"source": str(i)} for i in range(len(texts))])
+loader = TextLoader('data/paul_graham_essay.txt') # replace with your text data
+documents = loader.load()
+text_splitter = CharacterTextSplitter(chunk_size=1500, chunk_overlap=0)
+texts = text_splitter.split_documents(documents)
+db = FAISS.from_documents(texts, embeddings)
 
 # trigger the queries for the documents
-queries = [
-    "Before college what are the two main things he worked on?",
-    "Who are allowed to take the exam?"
-]
-for query in queries:
+for question in questions_q_and_a:
     start_t = time.time()
-    docs = db.similarity_search(query)
-    print(f"Query: {query}")
+    docs = db.similarity_search(question)
+    print(f"Question: {question}")
     print(f"Answer: {docs[0].page_content}")
     print("Execution time", time.time() - start_t)
     print(100*"=")

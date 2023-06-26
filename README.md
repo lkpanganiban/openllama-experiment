@@ -1,6 +1,6 @@
 # OpenLlama with LangChain
 
-This is a repository for my experimentation with OpenLlama 3B with LangChain. This implements a CPU execution of Q and A. Note that depending on your hardware it may take a long time to execute. The aim of this repository is to have working implementation of the LLM Q and A setup without the need of external APIs like OpenAI or specialized hardware like GPUs. 
+This is a repository for my experimentation with OpenLlama 3B with LangChain. This implements a CPU execution OpenLlama3B. Note that depending on your hardware it may take a long time to execute. The aim of this repository is to have working implementation of the LLM Q and A setup without the need of external APIs like OpenAI or specialized hardware like GPUs. 
 
 ## Requirements
 ### Hardware Requirements
@@ -24,15 +24,23 @@ This is a repository for my experimentation with OpenLlama 3B with LangChain. Th
 2. Clone the following [https://huggingface.co/openlm-research/open_llama_3b](https://huggingface.co/openlm-research/open_llama_3b) under the `openlm-research`. Refer to the hugging face link on how to clone the model using Git LFS.
 3. Install the Python Libraries by using `pip`.
 
-### Creating a generalized Assistant
-1. Modify the `questions.py`
+### Running a generalized Assistant
+1. Modify the `question_chat` in `questions.py`.
 2. Execute `run_lang.py` and wait for it to generate the answers.
 
-### Creating a question and answer assistant for your documents
+### Running a question and answer assistant for your documents
+1. Modify the `question_q_and_a` in `questions.py`.
+2. Create 
+3. Execute `run_doc_openllamaembed.py` or `run_doc_huggingfaceembed.py` and wait for it to generate the answers.
 
 NOTE: There is a `run.py` which has a sample implementation directly lifted from the huggingface repository of the OpenLlama 3B.
 
 ## Execution Notes
+- This repository is running with the following specifications
+    - CPU: Ryzen 4500u
+    - RAM: 8GB with 16GB Swap
+    - GPU: None
+    - OS: Ubuntu 20.04 under WSL2
 - The execution is a pure CPU implementation. If you have access to GPUs and other specialized hardware then you'll have better developer exeperience and execution times - you will need to modify the codebase the use the GPU.
 - The `questions.py` contains the list of questions to do the benchmarking and execution.
 - In the `run_lang.py` there is a line containing the pre-prompt used. You can modify the pre-prompt to improve the accuracy and performance.

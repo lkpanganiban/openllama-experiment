@@ -8,7 +8,7 @@ You may modify this codebase as you see fit.
 import time
 import torch
 import transformers
-from questions import questions
+from questions import questions_chat
 from transformers import LlamaTokenizer, LlamaForCausalLM
 from langchain import PromptTemplate, LLMChain
 from langchain.llms import HuggingFacePipeline
@@ -101,5 +101,5 @@ def run_query(query):
     print(f"A: {output} ")
     print(f"Runtime: {end-start} seconds\n")
 
-for question in questions:
+for question in questions_chat:
     run_query(question)
