@@ -2,3 +2,4 @@ offload/
 models/
 openlm-research/
 __pycache__/
+.chroma

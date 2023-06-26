@@ -15,7 +15,6 @@ model = LlamaForCausalLM.from_pretrained(
     offload_folder="offload",
 )
 
-# prompt = 'Q: What is the largest animal?\nA:'
 prompt = 'Q: What is the smallest mammal?\nA:'
 input_ids = tokenizer(prompt, return_tensors="pt").input_ids
 
