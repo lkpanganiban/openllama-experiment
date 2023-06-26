@@ -4,7 +4,7 @@ This is a repository for my experimentation with OpenLlama 3B with LangChain. Th
 
 ## Requirements
 ### Hardware Requirements
-  - >16 GB RAM *(The more RAM the better)*
+  - around 16 GB RAM *(The more RAM the better)*
 ### System Requirements
   - Git LFS
 ### Python Libraries
@@ -36,7 +36,7 @@ This is a repository for my experimentation with OpenLlama 3B with LangChain. Th
 NOTE: There is a `run_default.py` which has a sample implementation directly lifted from the huggingface repository of the OpenLlama 3B.
 
 ## Execution Notes
-- This repository is running with the following specifications
+- This repository is running with the following specifications:
     - CPU: Ryzen 4500u
     - RAM: 8GB with 16GB Swap
     - GPU: None
@@ -48,3 +48,4 @@ NOTE: There is a `run_default.py` which has a sample implementation directly lif
 - The OpenLlama 3B model consumes about 16-20GB of memory. 
 - A swap file is configured which is about 16GB. If you can allocate more RAM then the need of a SWAP file is reduced.
 - Depending on the complexity of the question and the hardware used (swap, CPU, memory, etc.), the execution times may run from 2 mins to 10 mins.
+- For the `q_and_a` over the documents, the one that takes time is the loading of the model and embedding step. The actual query is fast. 
