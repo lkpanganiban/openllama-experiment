@@ -3,3 +3,5 @@ accelerate
 torch
 transformers
 langchain
+llama_index
+sentence_transformers

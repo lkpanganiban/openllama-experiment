@@ -48,11 +48,7 @@ class OpenLlamaEmbeddings(BaseModel, Embeddings):
         Returns:
             List of embeddings, one for each text.
         """
-        results = []
-        for text in texts:
-            response = self.embed_query(text)
-            results.append(response)
-        return results
+        return list(map(self.embed_query, texts))
 
     def embed_query(self, text) -> List[float]:
         """Embed the query or prompt.
